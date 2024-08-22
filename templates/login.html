@@ -1,13 +1,5 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tierrasur S.A.</title>
-    <link rel="stylesheet" href="static/style.css">
-    <link rel="manifest" href="manifest.json">
-</head>
-<body>
+{% extends 'base_inicio_sesion.html' %}
+{% block content %}
     <div class="container">
         <div class="logo">
             <img src="static/images/tierrasur.png" alt="Tierrasur S.A.">
@@ -24,5 +16,5 @@
         </footer>
     </div>
     <script src="script.js"></script>
-</body>
-</html>
+{% endblock %}
+
