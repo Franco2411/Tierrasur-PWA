@@ -17,7 +17,7 @@ def register():
         db, c = get_db()
         error = None
         c.execute(
-            'select id from usuarios where username = %s', (username,)
+            'select id from usuarios where email = %s', (email,)
         )
         if not username:
             error = 'El username es requerido'
@@ -26,7 +26,7 @@ def register():
         if not email:
             error = 'El email es requerido'
         elif c.fetchone() is not None:
-            error = 'El usuario {} se encuentra registrado'.format(username)
+            error = 'El usuario {} se encuentra registrado'.format(email)
         
         if error is None:
             c.execute(
@@ -43,7 +43,6 @@ def register():
 @bp.route('/login', methods=['GET','POST'])
 def login():
     if request.method == 'POST':
-        username = request.form['username']
         password = request.form['password']
         email = request.form['email']
 
