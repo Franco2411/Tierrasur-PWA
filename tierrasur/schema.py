@@ -4,10 +4,10 @@ instructions = [
     'SET FOREIGN_KEY_CHECKS=1',
     """
     CREATE TABLE usuarios(
-        id INT PRIMARY KEY auto_increment NOT NULL,
+        id INT PRIMARY KEY auto_increment,
         email varchar(50) NOT NULL,
         username varchar(50),
-        password varchar(100) NOT NULL
+        password varchar(255) NOT NULL
 )
     """
 ]
