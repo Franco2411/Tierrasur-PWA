@@ -18,8 +18,10 @@ def create_app():
     db.init_app(app)
 
     from . import auth
+    from . import home
 
     app.register_blueprint(auth.bp)
+    app.register_blueprint(home.bp)
     
     @app.route('/prueba')
     def prueba():
