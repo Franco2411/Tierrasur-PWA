@@ -20,7 +20,9 @@ body {
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     width: 100%;
-    max-width: 360px; /* Ajuste específico para iPhone 13 Pro */
+    height: 100%;
+    max-width: 360px;
+    max-height: 460px; /* Ajuste específico para iPhone 13 Pro */
     text-align: center;
     margin: 20px; /* Añade margen para que no quede pegado a los bordes */
 }

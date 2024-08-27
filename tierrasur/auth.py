@@ -43,19 +43,17 @@ def register():
 @bp.route('/login', methods=['GET','POST'])
 def login():
     if request.method == 'POST':
-        password = request.form['password']
-        email = request.form['email']
+        #password = request.form['password']
+        nombre = request.form['usuario']
 
         db, c = get_db()
         error = None
         c.execute(
-            'select * from usuarios where email = %s', (email,)
+            'select * from usuarios where nick = %s', (nombre,)
         )
         user = c.fetchone()
         if user is None:
             error = 'Usuario no encontrado'
-        elif not check_password_hash(user['password'], password):
-            error = 'Usuario y/o contraseña incorrecto'
         
         if error is None:
             session.clear()

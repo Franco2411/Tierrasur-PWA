@@ -13,12 +13,12 @@
             <img src="{{ url_for('static', filename='images/tierrasur.png') }}" alt="Tierrasur S.A. Logo" class="logo">
         </div>
         <form method="post" class="login-form">
-            <input type="email" name="email" id="email" placeholder="Ingrese su email" required>
-            <input type="password" name="password" id="password" placeholder="Contraseña" required>
-            <a href="#" class="forgot-password">¿Olvidaste tu contraseña?</a>
+            <input type="text" name="usuario" id="usuario" placeholder="Ingrese su usuario" required>
+            <!--<input type="password" name="password" id="password" placeholder="Contraseña" required>-->
+            <!--<a href="#" class="forgot-password">¿Olvidaste tu contraseña?</a>-->
             <input type="submit" value="Iniciar sesión" class="login-button">
         </form>        
-        <button class="register-button"><a href="{{ url_for('auth.register') }}">Registrarse</a></button>
+        <!--<button class="register-button"><a href="{{ url_for('auth.register') }}">Registrarse</a></button>-->
         {% for message in get_flashed_messages() %}
             <div class="flash">{{ message }}</div>
         {% endfor %}
