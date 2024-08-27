@@ -2,9 +2,6 @@ const cacheName = 'tierrasur-v1';
 const filesToCache = [
     '/',
     '/static/style.css',
-    '/static/style_home.css',
-    '/script.js',
-    '/manifest.json',
     '/static/images/tierrasur.png'
 ];
 
