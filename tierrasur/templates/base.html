@@ -4,48 +4,81 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tierrasur S.A.</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style_home.css') }}">
     <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
 </head>
 <body>
-  <h1>Bienvenido {{g.user['nombre']}}</h1>
-  <form method="post">
-    <label for="campos_list">Unidad productiva:</label>
-    <select id="campos_list" name="campos_list">
-        <option value="">Seleccione una opción</option>
-        {% for item in campos_list %}
-            <option value="{{ item['nro'] }}">{{ item['nro'] }}</option>
-        {% endfor %}
-    </select>
+  <!--<h1>Bienvenido {{g.user['nombre']}}</h1>-->
+  <button id="openFormButton">Agregar registros</button>
 
-    <label for="segunda-lista">Lote:</label>
-    <select id="segunda-lista" name="segunda_lista">
-        <option value="">Seleccione una opción</option>
-    </select>
+    <!-- Div para mostrar los ítems cargados -->
+    <ul id="item-list"></ul>
 
-    <label for="actividad_list">Actividad:</label>
-    <select id="actividad_list" name="actividad_list">
-        <option value="">Seleccione una opción</option>
-        {% for item in actividad_list %}
-          <option value="{{ item['id1'] }}">{{ item['nombre'] }}</option>
-        {% endfor %}
-    </select>
+    <!-- Botón para enviar la orden al servidor -->
+    <form action="" method="POST" id="submitForm">
+      <input type="hidden" id="customer_name" name="customer_name" required>
+      <button type="submit">Enviar orden</button>
+  </form>
 
-    <label for="tablas">Tipo:</label>
-    <select id="tablas" name="tablas">
-        <option value="">Seleccione una opción</option>
-        <option value="agroquimicos">Agroquimicos</option>
-        <option value="fertilizantes">Fertilizantes</option>
-        <option value="labor">Labor</option>
-        <option value="semilla">Semillas</option>
-        <option value="varios">Varios</option>
-    </select>
+  <div class="popup" id="popupForm">
+    <div class="popup-content">
+      <span id="closeFormButton">&times;</span>
+      <form method="post">
+        <label for="campos_list">Unidad productiva:</label>
+        <select id="campos_list" name="campos_list">
+            <option value="">Seleccione una opción</option>
+            {% for item in campos_list %}
+                <option value="{{ item['nro'] }}">{{ item['nro'] }}</option>
+            {% endfor %}
+        </select>
+    
+        <label for="segunda-lista">Lote:</label>
+        <select id="segunda-lista" name="segunda_lista">
+            <option value="">Seleccione una opción</option>
+        </select>
+    
+        <label for="actividad_list">Actividad:</label>
+        <select id="actividad_list" name="actividad_list">
+            <option value="">Seleccione una opción</option>
+            {% for item in actividad_list %}
+              <option value="{{ item['id1'] }}">{{ item['nombre'] }}</option>
+            {% endfor %}
+        </select>
+    
+        <label for="tablas">Tipo:</label>
+        <select id="tablas" name="tablas">
+            <option value="">Seleccione una opción</option>
+            <option value="agroquimicos">Agroquimicos</option>
+            <option value="fertilizantes">Fertilizantes</option>
+            <option value="labor">Labor</option>
+            <option value="semilla">Semillas</option>
+            <option value="varios">Varios</option>
+        </select>
+    
+        <label for="insumo_labor">Insumo/Labor:</label>
+        <select id="insumo_labor" name="insumo_labor">
+            <option value="">Seleccione una opción</option>
+        </select>
+    
+        <label for="precio">P. Ref</label>
+        <input type="text" name="precio" id="precio">
+    
+        <label for="cantidad">Cant.</label>
+        <input type="text" name="cantidad" id="cantidad">
+        
+        <button type="button" onclick="addItem()">Agregar registro</button>
+    
+        <br>
+        <ul id="item-list"></ul>
+        <br>
+    
+        <input type="submit" value="Enviar" id="enviar">
+    </form>
 
-    <label for="insumo_labor">Insumo/Labor:</label>
-    <select id="insumo_labor" name="insumo_labor">
-        <option value="">Seleccione una opción</option>
-    </select>
-</form>
+    </div>
+  </div>
+
+  
     
         {% for message in get_flashed_messages() %}
             <div class="flash">{{ message }}</div>

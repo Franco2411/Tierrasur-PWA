@@ -1,90 +1,36 @@
-/* Estilos generales */
 body {
-    margin: 0;
     font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
 }
 
-.navbar {
-    background-color: #1f5c2b;
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1rem;
+#openFormButton {
+    margin-bottom: 20px;
 }
 
-.menu-icon {
-    font-size: 1.5rem;
-    cursor: pointer;
+#item-list {
+    margin-top: 20px;
+    list-style-type: none;
 }
 
-.navbar-brand {
-    font-size: 1.2rem;
-    font-weight: bold;
-}
-
-.main-content {
-    padding: 2rem;
-    min-height: calc(100vh - 120px); /* Espacio restante sin incluir la navbar y el footer */
-    background-color: #e5e5e5;
-}
-
-.fab {
+.popup {
+    display: none;
     position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background-color: #1f5c2b;
-    color: white;
-    border-radius: 50%;
-    width: 56px;
-    height: 56px;
-    display: flex;
-    align-items: center;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
     justify-content: center;
-    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);
+    align-items: center;
+}
+
+.popup-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    width: 300px;
+}
+
+#closeFormButton {
+    float: right;
     cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.fab:hover {
-    background-color: #164d22;
-}
-
-@media only screen and (min-width: 768px) {
-    .navbar {
-        padding: 1rem 2rem;
-    }
-
-    .menu-icon {
-        display: none; /* Oculta el ícono del menú en pantallas grandes */
-    }
-
-    .navbar-brand {
-        font-size: 1.5rem;
-    }
-
-    .fab {
-        width: 64px;
-        height: 64px;
-        bottom: 30px;
-        right: 30px;
-    }
-}
-
-@media only screen and (max-width: 767px) {
-    .main-content {
-        padding: 1rem;
-    }
-
-    .navbar-brand {
-        font-size: 1rem;
-    }
-
-    .fab {
-        width: 48px;
-        height: 48px;
-        bottom: 15px;
-        right: 15px;
-    }
 }
