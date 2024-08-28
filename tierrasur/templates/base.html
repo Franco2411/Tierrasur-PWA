@@ -9,6 +9,43 @@
 </head>
 <body>
   <h1>Bienvenido {{g.user['nombre']}}</h1>
+  <form method="post">
+    <label for="campos_list">Unidad productiva:</label>
+    <select id="campos_list" name="campos_list">
+        <option value="">Seleccione una opción</option>
+        {% for item in campos_list %}
+            <option value="{{ item['nro'] }}">{{ item['nro'] }}</option>
+        {% endfor %}
+    </select>
+
+    <label for="segunda-lista">Lote:</label>
+    <select id="segunda-lista" name="segunda_lista">
+        <option value="">Seleccione una opción</option>
+    </select>
+
+    <label for="actividad_list">Actividad:</label>
+    <select id="actividad_list" name="actividad_list">
+        <option value="">Seleccione una opción</option>
+        {% for item in actividad_list %}
+          <option value="{{ item['id1'] }}">{{ item['nombre'] }}</option>
+        {% endfor %}
+    </select>
+
+    <label for="tablas">Tipo:</label>
+    <select id="tablas" name="tablas">
+        <option value="">Seleccione una opción</option>
+        <option value="agroquimicos">Agroquimicos</option>
+        <option value="fertilizantes">Fertilizantes</option>
+        <option value="labor">Labor</option>
+        <option value="semilla">Semillas</option>
+        <option value="varios">Varios</option>
+    </select>
+
+    <label for="insumo_labor">Insumo/Labor:</label>
+    <select id="insumo_labor" name="insumo_labor">
+        <option value="">Seleccione una opción</option>
+    </select>
+</form>
     
         {% for message in get_flashed_messages() %}
             <div class="flash">{{ message }}</div>
@@ -16,6 +53,7 @@
         <footer>HDA54 Software | 2024</footer>
     </div>
 </body>
+<script src="{{ url_for('static', filename='scripts.js') }}"></script>
 
 
 <script>
