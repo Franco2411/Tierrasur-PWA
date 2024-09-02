@@ -51,8 +51,9 @@ document.getElementById('closeFormButton').addEventListener('click', function() 
 });
 
 
+let items = [];
+// Agrego los items a la lista y los muestro en la pantalla
 function addItem() {
-    const itemList = document.getElementById('item-list');
     // UP
     const upSelect = document.getElementById('campos_list');
     const up_name = upSelect.options[upSelect.selectedIndex].text;
@@ -81,23 +82,76 @@ function addItem() {
         return;
     }
 
-    // Crear un nuevo ítem en la lista
-    const item = document.createElement('li');
-    item.textContent = `UP: ${up_name} - Lote: ${lote_name} - Actividad: ${actividad_name} - Tipo: ${tablas_name} - Insumo/Labor: ${insumo_name} - Cantidad: ${quantity} - Precio: ${price}`;
-    
-    // Crear un input oculto para enviar los datos del ítem
-    const input = document.createElement('input');
-    input.type = 'hidden';
-    input.name = 'items[]';
-    input.value = `${up_name},${lote_name},${actividad_name},${tablas_name},${insumo_name},${quantity},${price}`;
-    
-    // Añadir el input y el ítem a la lista
-    item.appendChild(input);
-    itemList.appendChild(item);
+    // Agregamos el item al array
+    items.push({
+        up: parseInt(up_name),
+        lote: parseInt(lote_name),
+        actividad: actividad_name,
+        tipo: tablas_name,
+        insumo: insumo_name,
+        cant: parseFloat(quantity),
+        precio: parseFloat(price)
+    });
+
+    renderItems();
+   
 
     // Limpiar los campos de entrada después de agregar el ítem
     document.getElementById('cantidad').value = '';
     document.getElementById('precio').value = '';
     //document.getElementById('popupForm').style.display = 'none';
 }
+
+// Función para renderizar los items en la lista
+function renderItems() {
+    const itemList = document.getElementById('item-list');
+    itemList.innerHTML = ''; // Limpiamos la lista
+
+    items.forEach((item, index) => {
+        const listItem = document.createElement('li');
+        listItem.textContent = `UP: ${item.up} - Lote: ${item.lote} - Actividad: ${item.actividad} - Tipo: ${item.tipo} - Insumo/Labor: ${item.insumo} - Cantidad: ${item.cant} - Precio: ${item.precio}`;
+        itemList.appendChild(listItem);
+    });
+}
+
+// Funcion para enviar los datos al backend en un json
+document.getElementById('submitForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Evitar que el formulario se envíe automáticamente
+    enviarDatos(); // Llamar a la función enviarDatos
+});
+
+function enviarDatos() {
+    console.log('Función enviarDatos llamada');
+    if (items.length === 0) {
+        alert('No hay items para enviar');
+        return;
+    }
+
+    const data = {
+        order_id: document.getElementById('order-id') ? document.getElementById('order-id').value : null,
+        items: items
+    };
+
+    console.log('Datos a enviar: ', data);
+
+    fetch('/api/save_data', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert('Datos guardados con éxito');
+            //window.location.href = `/order_success/${data.order_id}`;
+        } else {
+            alert('Error al guardar la orden: ' + data.error);
+        }
+    })
+    .catch(error => console.error('Error: ', error));    
+}
+
+
 

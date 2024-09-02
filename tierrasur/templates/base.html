@@ -12,18 +12,21 @@
   <button id="openFormButton">Agregar registros</button>
 
     <!-- Div para mostrar los ítems cargados -->
-    <ul id="item-list"></ul>
+    <!--<ul id="item-list"></ul>
+    <button type="button" onclick="enviarDatos()">GUARDAR ORDEN</button>-->
 
     <!-- Botón para enviar la orden al servidor -->
-    <form action="" method="POST" id="submitForm">
-      <input type="hidden" id="customer_name" name="customer_name" required>
+    <form method="POST" id="submitForm">
+      <br>
+        <ul id="item-list"></ul>
+        <br>
       <button type="submit">Enviar orden</button>
   </form>
 
   <div class="popup" id="popupForm">
     <div class="popup-content">
       <span id="closeFormButton">&times;</span>
-      <form method="post">
+      
         <label for="campos_list">Unidad productiva:</label>
         <select id="campos_list" name="campos_list">
             <option value="">Seleccione una opción</option>
@@ -68,12 +71,8 @@
         
         <button type="button" onclick="addItem()">Agregar registro</button>
     
-        <br>
-        <ul id="item-list"></ul>
-        <br>
+        
     
-        <input type="submit" value="Enviar" id="enviar">
-    </form>
 
     </div>
   </div>
