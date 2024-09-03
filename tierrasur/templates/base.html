@@ -8,8 +8,8 @@
     <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
 </head>
 <body>
-  <!--<h1>Bienvenido {{g.user['nombre']}}</h1>-->
-  <button id="openFormButton">Agregar registros</button>
+  <h1 class="nombre">Bienvenido {{g.user['nick']}}</h1>
+  <button id="openFormButton" class="btns">Agregar registros</button>
 
     <!-- Div para mostrar los ítems cargados -->
     <!--<ul id="item-list"></ul>
@@ -17,10 +17,12 @@
 
     <!-- Botón para enviar la orden al servidor -->
     <form method="POST" id="submitForm">
-      <br>
+      <div class="registros">
+        <br>
         <ul id="item-list"></ul>
         <br>
-      <button type="submit">Enviar orden</button>
+      </div>      
+      <button type="submit" class="btns">Enviar orden</button>
   </form>
 
   <div class="popup" id="popupForm">
@@ -82,7 +84,7 @@
         {% for message in get_flashed_messages() %}
             <div class="flash">{{ message }}</div>
         {% endfor %}
-        <footer>HDA54 Software | 2024</footer>
+        
     </div>
 </body>
 <script src="{{ url_for('static', filename='scripts.js') }}"></script>

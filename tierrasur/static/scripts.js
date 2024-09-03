@@ -145,7 +145,7 @@ function enviarDatos() {
     .then(data => {
         if (data.success) {
             alert('Datos guardados con éxito');
-            //window.location.href = `/order_success/${data.order_id}`;
+            itemList.innerHTML = ''; // Limpiamos la lista
         } else {
             alert('Error al guardar la orden: ' + data.error);
         }

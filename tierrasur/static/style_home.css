@@ -11,6 +11,10 @@ body {
     list-style-type: none;
 }
 
+.nombre {
+    color: #20512d;
+}
+
 .popup {
     display: none;
     position: fixed;
@@ -24,13 +28,92 @@ body {
 }
 
 .popup-content {
-    background-color: #fff;
+    background-color: #eee;
     padding: 20px;
     border-radius: 5px;
     width: 300px;
+    display: block;
+    border: 2px solid #20512d;
+    border-radius: 8px;
+}
+
+.popup-content label {
+    padding: 8px;
+    display: block;
+    color: #20512d;
+}
+
+.popup-content select {
+    padding: 8px;
+    width: 100%;
+    margin: 0px auto;
+    
+}
+
+.popup-content input {
+    padding: 8px;
+    margin: 0px 8px;
+}
+
+.popup-content button {
+    padding: 8px;
+    margin: 8px;
+    background-color: #20512d;
+    color: #fff;
+    border-radius: 2px;
+    float: left;
+    
+}
+
+.popup-content button:hover {
+    cursor: pointer;
+    background-color: #16371f;
 }
 
 #closeFormButton {
     float: right;
     cursor: pointer;
+}
+
+#closerFormButton:hover {
+    background-color: red;
+}
+
+.btns {
+    padding: 8px;
+    margin: 8px;
+    background-color: #20512d;
+    color: #fff;
+    border-radius: 2px;
+}
+
+.btns:hover {
+    cursor: pointer;
+    background-color: #16371f;
+}
+
+form {
+    margin: auto;
+    border: 1px solid red;
+}
+
+.registros {
+    font-size: small;
+    display: flex-box;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    border: 1px solid blue;
+}
+
+.registros ul {
+    border: 1px solid yellow;
+}
+
+.registros li {
+    background-color: #20512d;
+    color: #fff;
+    padding: 8px;
+    border: 1px solid black;
 }
