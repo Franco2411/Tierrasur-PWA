@@ -15,7 +15,7 @@
           <input type="text" name="username" id="username" placeholder="Ingrese su usuario" required>
           <input type="email" name="email" id="email" placeholder="Ingrese su email" required>
           <input type="password" name="password" id="password" placeholder="Contraseña" required>
-          <input type="submit" value="Registrarse" class="login-button">
+          <input type="submit" value="Solicitar" class="login-button">
       </form>
       <button class="register-button"><a href="{{ url_for('auth.login') }}">Volver</a></button>
         {% for message in get_flashed_messages() %}

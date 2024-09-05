@@ -15,7 +15,7 @@
         <form method="post" class="login-form">
             <input type="text" name="usuario" id="usuario" placeholder="Ingrese su usuario" required>
             <input type="password" name="password" id="password" placeholder="Contraseña" required>
-            <!--<a href="#" class="forgot-password">Solicitar acceso</a>-->
+            <a href="{{ url_for('auth.register') }}" class="forgot-password">Solicitar acceso</a>
             <input type="submit" value="Iniciar sesión" class="login-button">
         </form>        
         <!--<button class="register-button"><a href="{{ url_for('auth.register') }}">Registrarse</a></button>-->

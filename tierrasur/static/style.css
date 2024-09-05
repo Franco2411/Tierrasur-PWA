@@ -53,6 +53,7 @@ body {
     border: 1px solid #ccc;
     font-size: 18px; /* Aumenta el tamaño de la fuente */
     width: 100%;
+    
 }
 
 .forgot-password {
@@ -62,6 +63,12 @@ body {
     margin-bottom: 20px;
     display: block;
     text-align: left;
+    font-style: italic;
+}
+
+.forgot-password:hover {
+    color:#20512d;
+    cursor: pointer;
 }
 
 .login-button, .register-button {
@@ -97,6 +104,10 @@ body {
 .register-button a {
     color: #20512d;
     text-decoration: none;
+}
+
+.register-button a:hover {
+    color: #fff;
 }
 
 footer {
