@@ -158,11 +158,12 @@ function enviarDatos() {
                 text: 'Los datos se enviaron correctamente.',
                 confirmButtonText: 'Aceptar',
                 //timer: 5000 // El mensaje se cierra automáticamente en 3 segundos
-            });
+            }).then(() => {
+                const itemList = document.getElementById('item-list');
+                itemList.innerHTML = ''; // Limpiamos la lista
+                items.length = 0;
+            });            
             
-            
-            itemList.innerHTML = ''; // Limpiamos la lista
-            itemList = '';
         } else {
             console.log('Error al guardar la orden: ' + data.error);
             Swal.fire({
