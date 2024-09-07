@@ -123,7 +123,14 @@ document.getElementById('submitForm').addEventListener('submit', function(event)
 function enviarDatos() {
     console.log('Función enviarDatos llamada');
     if (items.length === 0) {
-        alert('No hay items para enviar');
+        //alert('No hay items para enviar');
+        Swal.fire({
+            icon: 'warning',
+            title: 'No hay datos!',
+            text: 'Debe cargar datos para poder enviarlos',
+            confirmButtonText: 'Aceptar',
+            //timer: 5000 // El mensaje se cierra automáticamente en 3 segundos
+        });
         return;
     }
 
@@ -144,10 +151,26 @@ function enviarDatos() {
     .then(response => response.json())
     .then(data => {
         if (data.success) {
-            alert('Datos guardados con éxito');
+            //alert('Datos guardados con éxito');
+            Swal.fire({
+                icon: 'success',
+                title: 'Datos enviados!',
+                text: 'Los datos se enviaron correctamente.',
+                confirmButtonText: 'Aceptar',
+                //timer: 5000 // El mensaje se cierra automáticamente en 3 segundos
+            });
+            
+            
             itemList.innerHTML = ''; // Limpiamos la lista
+            itemList = '';
         } else {
-            alert('Error al guardar la orden: ' + data.error);
+            console.log('Error al guardar la orden: ' + data.error);
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Ocurrió un problema al enviar los datos.',
+                confirmButtonText: 'Intentar de nuevo'
+            });
         }
     })
     .catch(error => console.error('Error: ', error));    

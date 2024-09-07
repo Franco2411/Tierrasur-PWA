@@ -117,3 +117,11 @@ form {
     padding: 8px;
     border: 1px solid black;
 }
+
+.swal2-confirm {
+    background-color: #20512d;
+}
+
+.swal2-confirm:hover {
+    background-color: #16371f;
+}

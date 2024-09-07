@@ -15,6 +15,7 @@ def create_app():
     )
 
     from . import db
+    from . import funciones_varias
 
     db.init_app(app)
 

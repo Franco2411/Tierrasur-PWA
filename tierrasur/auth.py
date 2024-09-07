@@ -4,6 +4,7 @@ from flask import (
 )
 from werkzeug.security import check_password_hash, generate_password_hash
 from tierrasur.db import get_db
+from tierrasur.funciones_varias import envio_mail
 
 bp = Blueprint('auth', __name__, url_prefix='/auth')
 
@@ -12,30 +13,33 @@ def register():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-        email = request.form['email']
+        nombre = request.form['nomCompleto']
 
         db, c = get_db()
         error = None
         c.execute(
-            'select id from usuarios where email = %s', (email,)
+            'select id from usuarios where nick = %s', (username,)
         )
         if not username:
             error = 'El username es requerido'
         if not password:
             error = 'La contraseña es requerida'
-        if not email:
-            error = 'El email es requerido'
+        if not nombre:
+            error = 'El nombre es requerido'
         elif c.fetchone() is not None:
-            error = 'El usuario {} se encuentra registrado'.format(email)
+            error = 'El usuario {} se encuentra registrado'.format(nombre)
         
         if error is None:
-            c.execute(
-                'insert into usuarios (email, username, password) values (%s, %s, %s)',
-                (email, username, generate_password_hash(password))
-            )
-            db.commit()
+            
+            try:
+                envio_mail(username, nombre, password)
+                print('Solicitud enviada')
+                return redirect(url_for('auth.login'))
+            except Exception as e:
+                print(f'Solicitud no pudo ser enviada: {e}')
+                error = f'Solicitud no pudo ser enviada: {e}'           
 
-            return redirect(url_for('auth.login'))
+            
 
         flash(error)
     return render_template('auth/register.html')
