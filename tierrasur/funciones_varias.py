@@ -3,6 +3,7 @@ from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import *
 from flask import current_app, g
 from tierrasur.db import get_db
+from datetime import datetime
 
 
 
@@ -45,4 +46,22 @@ def consulta_emails():
         for item in cc:
             lista_emails.append(item['email'])
     return lista_emails
-    
+
+
+def anio_campania():
+    hoy = datetime.now()
+    dia = hoy.day
+    mes = hoy.month
+    anio = hoy.year
+
+    campania = None
+
+    if (dia <= 31 and mes <= 5):
+        anio_anterior = hoy.strftime("%y")  # Año anterior en formato de dos dígitos
+        anio_actual = (hoy.year - 1) % 100  # Restando 1 al año actual y formateando
+        campania = f'{anio_actual:02}/{anio % 100:02}'  # Ambos años con dos dígitos
+    else:
+        anio_siguiente = (anio + 1) % 100  # Año siguiente en formato de dos dígitos
+        campania = f'{anio % 100:02}/{anio_siguiente:02}'
+
+    return campania

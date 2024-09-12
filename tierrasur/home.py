@@ -6,6 +6,7 @@ from tierrasur.auth import required_login
 from tierrasur.db import get_db
 from datetime import datetime
 import logging
+from tierrasur.funciones_varias import anio_campania
 
 bp = Blueprint('home', __name__)
 
@@ -31,7 +32,7 @@ def save_data():
     try:
         fecha = datetime.now()
         usuario = g.user['nick']
-        campa = '24/25'
+        campa = anio_campania()
 
         # Inserto la orden
         c.execute(
