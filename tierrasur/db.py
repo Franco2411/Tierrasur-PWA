@@ -10,7 +10,8 @@ def get_db():
             host=current_app.config['DATABASE_HOST'],
             user=current_app.config['DATABASE_USER'],
             password=current_app.config['DATABASE_PASSWORD'],
-            database=current_app.config['DATABASE']
+            database=current_app.config['DATABASE'],
+            auth_plugin='mysql_native_password'
         )
         g.c = g.db.cursor(dictionary=True)
     return g.db, g.c
