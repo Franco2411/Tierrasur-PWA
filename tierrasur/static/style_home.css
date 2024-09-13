@@ -93,29 +93,45 @@ body {
 }
 
 form {
-    margin: auto;
     border: 1px solid red;
+    margin: 0 auto; /* Centra el formulario */
+    width: 100%; /* Asegura que ocupe todo el ancho disponible */
+    max-width: 500px; /* Establece un límite en pantallas más grandes */
+    box-sizing: border-box;
 }
 
 .registros {
     font-size: small;
-    display: flex-box;
+    display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
     width: 100%;
     height: 100%;
+    box-sizing: border-box;
     border: 1px solid blue;
 }
 
 .registros ul {
     border: 1px solid yellow;
+    margin: 0 auto; /* Centrará el 'ul' */
+    max-width: 100%; /* Se ajusta a pantallas más pequeñas */
+    padding: 0; /* Remueve cualquier padding que pueda desbordarse */
+    box-sizing: border-box;
+    
 }
 
 .registros li {
     background-color: #20512d;
     color: #fff;
-    padding: 8px;
-    border: 1px solid black;
+    border: 1px solid red;    
+    text-align: left;
+    padding: 8px; /* Reducir el padding si es necesario */
+    max-width: 100%; /* Que ocupe todo el ancho del contenedor */
+    margin: 8px 0; /* Márgenes verticales para separar las `li` */
+    box-sizing: border-box;
+    
+    
 }
 
 .swal2-confirm {
@@ -124,4 +140,17 @@ form {
 
 .swal2-confirm:hover {
     background-color: #16371f;
+}
+
+@media (max-width: 550px) {
+    .registros ul {
+        margin: 10px; /* Reduce el margen para pantallas pequeñas */
+        max-width: 100%; /* Asegura que no desborde */
+    }
+    
+    .registros li {
+        padding: 10px; /* Ajusta el padding */
+        max-width: 100%; /* Que ocupe todo el ancho disponible */
+        margin: 10px 0; /* Márgenes verticales */
+    }
 }
