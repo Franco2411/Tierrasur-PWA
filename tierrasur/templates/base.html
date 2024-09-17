@@ -7,10 +7,15 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style_home.css') }}">
     <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
-  <h1 class="nombre">Bienvenido {{g.user['nick']}}</h1>
-  <button id="openFormButton" class="btns">Agregar registros</button>
+  <div class="up-bar">
+    <h3 class="nombre">Bienvenido {{g.user['nick']}}</h3>
+    <button><a href="{{ url_for('auth.logout') }}"><i class="fas fa-sign-out-alt"></i></a></button>
+  </div>
+  
+  <button id="openFormButton" class="fab"><i class="fas fa-plus"></i></button>
 
     <!-- Div para mostrar los ítems cargados -->
     <!--<ul id="item-list"></ul>

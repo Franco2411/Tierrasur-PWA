@@ -70,6 +70,15 @@ def login():
     return render_template('auth/login.html')
 
 
+@bp.route('/logout', methods=['POST', 'GET'])
+def logout():
+    user = session.get('user_id')
+    if user is not None:
+        session.clear()
+        
+        return redirect(url_for('auth.login'))
+
+
 @bp.before_app_request
 def load_logged_in_user():
     user_id = session.get('user_id')
