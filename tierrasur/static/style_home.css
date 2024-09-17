@@ -122,6 +122,16 @@ body {
     z-index: 1000;
 }
 
+.btns {
+    background-color: #20512d;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 550;
+    padding: 10px;
+    margin: 0px 8px;
+    border-radius: 8px;
+}
+
 .btns:hover {
     cursor: pointer;
     background-color: #16371f;

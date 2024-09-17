@@ -40,6 +40,7 @@ document.getElementById('tablas').addEventListener('change', function() {
     }
 });
 
+document.getElementById('btn_enviar_orden').style.display = 'none';
 
 // Funcion de adición de items a la lista de la orden
 document.getElementById('openFormButton').addEventListener('click', function() {
@@ -100,6 +101,9 @@ function addItem() {
     document.getElementById('cantidad').value = '';
     document.getElementById('precio').value = '';
     //document.getElementById('popupForm').style.display = 'none';
+
+    // Muestro el boton de enviar orden
+    document.getElementById('btn_enviar_orden').style.display = 'block';
 }
 
 // Función para renderizar los items en la lista
@@ -162,6 +166,9 @@ function enviarDatos() {
                 const itemList = document.getElementById('item-list');
                 itemList.innerHTML = ''; // Limpiamos la lista
                 items.length = 0;
+
+                // Oculto el boton de enviar orden
+                document.getElementById('btn_enviar_orden').style.display = 'none';
             });            
             
         } else {
