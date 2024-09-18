@@ -9,4 +9,7 @@ MarkupSafe==2.1.5
 mysql-connector-python==9.0.0
 packaging==24.1
 pyodbc==5.1.0
+python-http-client==3.3.7
+sendgrid==6.11.0
+starkbank-ecdsa==2.2.0
 Werkzeug==3.0.4
