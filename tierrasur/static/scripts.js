@@ -116,12 +116,46 @@ function renderItems() {
         listItem.textContent = `UP: ${item.up} - Lote: ${item.lote} - Actividad: ${item.actividad} - Tipo: ${item.tipo} - Insumo/Labor: ${item.insumo} - Cantidad: ${item.cant} - Precio: ${item.precio}`;
         itemList.appendChild(listItem);
     });
+
+    /*items.forEach((item, index) => {
+        const listItem = document.createElement('li');
+        const divItem = document.createElement('div');
+
+        divItem.innerHTML = `
+            <h4>UP: ${item.up}</h4>
+            <p>Lote: ${item.lote}</p>
+            <p>Actividad: ${item.actividad}</p>
+            <p>Tipo: ${item.tipo}</p>
+            <p>Insumo/Labor: ${item.insumo}</p>
+            <p>Cantidad: ${item.cant}</p>
+            <p>Precio: ${item.precio}</p>
+        `;
+
+        listItem.appendChild(divItem);
+        itemList.appendChild(listItem);
+    });*/
+    
 }
 
 // Funcion para enviar los datos al backend en un json
 document.getElementById('submitForm').addEventListener('submit', function(event) {
     event.preventDefault(); // Evitar que el formulario se envíe automáticamente
-    enviarDatos(); // Llamar a la función enviarDatos
+    Swal.fire({
+        title: "¿Está seguro?",
+        text: "Está por enviar una orden, asegurese de que los datos estén correctos",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#20512d",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Si, enviar orden"
+      }).then((result) => {
+        if (result.isConfirmed) {
+          enviarDatos()
+        }
+      });
+    
+    
+    //enviarDatos(); // Llamar a la función enviarDatos
 });
 
 function enviarDatos() {
