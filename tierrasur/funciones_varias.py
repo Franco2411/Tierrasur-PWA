@@ -16,7 +16,7 @@ def envio_mail(usuario, nombre, contrasenia):
         from_email='tierrasur.sa2020@gmail.com',
         to_emails=to_emm,
         subject='El usuario {} solicita acceso a Tierrasur-Web'.format(usuario),
-        html_content='<h2>Solicitud de acceso a la plataforma</h2><div><p>Datos del usuario solicitante:</p><ul><li>Nombre: {} </li><li>Email: {} </li><li>Contraseña: {} </li></ul></div>'.format(usuario, nombre, contrasenia)
+        html_content='<h2>Solicitud de acceso a la plataforma</h2><div><p>Datos del usuario solicitante:</p><ul><li>Usuario: {} </li><li>Nombre: {} </li><li>Contraseña: {} </li></ul></div>'.format(usuario, nombre, contrasenia)
     )
 
     try:

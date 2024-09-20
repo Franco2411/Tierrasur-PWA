@@ -1,6 +1,6 @@
 import functools
 from flask import (
-    Blueprint, flash, g, render_template, request, url_for, session, redirect
+    Blueprint, flash, g, render_template, request, url_for, session, redirect, jsonify
 )
 from werkzeug.security import check_password_hash, generate_password_hash
 from tierrasur.db import get_db
@@ -43,6 +43,39 @@ def register():
 
         flash(error)
     return render_template('auth/register.html')
+
+@bp.route('/save_request', methods=['POST', 'GET'])
+def save_request():
+    db, c = get_db()
+    data = request.get_json()
+    error = None
+
+    c.execute(
+        'select id from usuarios where nick = %s', (data.get('username'),)
+    )
+
+    if not data.get('username'):
+        error = 'El username es requerido'
+    if not data.get('nombre'):
+        error = 'El nombre es requerido'
+    if data.get('password') == '':
+        error = 'La contraseña es requerida'
+    elif c.fetchone() is not None:
+        error = 'El usuario {} ya se encuentra registrado.'.format(data['nombre'])
+    
+    if error is None:
+        try:
+            envio_mail(data['username'], data['nombre'], data['password'])
+            print('Solicitud enviada')
+            return jsonify({'success': True, 'message': 'Solicitud enviada con exito'})
+        except Exception as e:
+            print(f'Solicitud no pudo ser enviada: {e}')
+            error = f'La solicitud no pudo ser enviada: {e}'
+    
+    return jsonify({'success': False, 'message': error})
+    
+
+    
 
 @bp.route('/login', methods=['GET','POST'])
 def login():
