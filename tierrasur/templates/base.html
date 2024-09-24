@@ -7,12 +7,29 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style_home.css') }}">
     <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!--<script src="https://kit.fontawesome.com/120bfde3f8.js" crossorigin="anonymous"></script>-->
 </head>
 <body>
+  <header class="top-bar">
+    <div class="menu-icon" id="menu-toggle">
+      <i class="fa-solid fa-bars"></i>
+    </div>
+  </header>
+  <aside class="sidebar" id="sidebar">
+    <div class="logo">
+      <img src="{{ url_for('static', filename='images/tierrasur.png') }}" alt="Tierrasur S.A. Logo">
+    </div>
+    <nav class="menu">
+        <ul>
+            <li><a href="{{ url_for('home.index') }}"><i class="fa-solid fa-house"></i>    Inicio</a></li>
+            <li><a href="{{ url_for('auth.logout') }}"><i class="fa-solid fa-right-from-bracket"></i>    Cerrar sesión</a></li>
+        </ul>
+    </nav>
+</aside>
+<main class="content">
   <div class="up-bar">
-    <h3 class="nombre">Bienvenido {{g.user['nick']}}</h3>
-    <button><a href="{{ url_for('auth.logout') }}"><i class="fas fa-sign-out-alt"></i></a></button>
+    <h3 class="nombre">Bienvenido {{g.user['nick']}}!</h3>
   </div>
   
   <button id="openFormButton" class="fab"><i class="fas fa-plus"></i></button>
@@ -90,8 +107,10 @@
         {% endfor %}
         
     </div>
+  </main>
 </body>
 <script src="{{ url_for('static', filename='scripts.js') }}"></script>
+
 
 
 <script>

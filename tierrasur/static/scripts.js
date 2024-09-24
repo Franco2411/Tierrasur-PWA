@@ -1,3 +1,24 @@
+document.addEventListener("DOMContentLoaded", function () {
+    const sidebar = document.getElementById("sidebar");
+    const menuBtn = document.getElementById("menu-toggle");
+
+    // Mostrar/Ocultar el menú al hacer clic en el botón
+    menuBtn.addEventListener("click", () => {
+        sidebar.classList.toggle("active");
+    });
+
+    // Cerrar el menú al hacer clic fuera de él
+    document.addEventListener("click", (event) => {
+        const isClickInsideSidebar = sidebar.contains(event.target);
+        const isClickOnMenuButton = menuBtn.contains(event.target);
+
+        if (!isClickInsideSidebar && !isClickOnMenuButton) {
+            sidebar.classList.remove("active");
+        }
+    });
+});
+
+
 document.getElementById('campos_list').addEventListener('change', function() {
     let campos_id = this.value;
     
@@ -78,8 +99,8 @@ function addItem() {
     const quantity = document.getElementById('cantidad').value;
     const price = document.getElementById('precio').value;
 
-    if (!quantity) {
-        alert("Debe de colocar la cantidad");
+    if (quantity == '' || up_name == 'Seleccione una opción' || lote_name == 'Seleccione una opción') {
+        alert("Los campos UP, Lote y Cantidad no pueden estar vacíos.");
         return;
     }
 

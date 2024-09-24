@@ -12,6 +12,90 @@ body {
     list-style-type: none;
 }
 
+/* Sidebar */
+.sidebar {
+    width: 250px;
+    background-color: #fff;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.sidebar .logo {
+    text-align: center;
+    margin-bottom: 20px;
+    
+}
+
+.logo img {
+    max-width: 200px;
+    max-height: 100px;
+    padding: 10px;
+}
+
+.sidebar .menu ul {
+    list-style: none;
+}
+
+.sidebar .menu ul li {
+    margin: 15px 0;
+}
+
+.sidebar .menu ul li a {
+    text-decoration: none;
+    color: #20512d;
+    font-size: 16px;
+    display: block;
+    padding: 5px 2px;
+}
+
+.sidebar .menu ul li a:hover {
+    background-color: #e0e0e0;
+    border-radius: 4px;
+}
+
+.top-bar {
+    width: 100%;
+    height: 40px;
+    background-color: #f4f4f8;
+    padding: 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 290px;
+    z-index: 1000;
+}
+
+.menu-icon {
+    font-size: 15px;
+    border: none;
+    color: #20512d;
+    cursor: pointer;
+    display: none;
+}
+
+.menu-icon-btn i {
+    font-size: 15px;
+    border: none;
+    color: #20512d;
+    cursor: pointer;
+    display: none;
+}
+
+.content {
+    margin-left: 290px;
+    padding: 80px 20px;
+    width: 100%;
+}
+
+
 .up-bar {
     display: flex;
     flex-direction: row;
@@ -138,10 +222,11 @@ body {
 }
 
 form {
-    margin: 0 auto; /* Centra el formulario */
+    margin: 0 290px; /* Centra el formulario */
     width: 100%; /* Asegura que ocupe todo el ancho disponible */
     max-width: 500px; /* Establece un límite en pantallas más grandes */
     box-sizing: border-box;
+    
 }
 
 .registros {
@@ -160,6 +245,7 @@ form {
     max-width: 100%; /* Se ajusta a pantallas más pequeñas */
     padding: 0; /* Remueve cualquier padding que pueda desbordarse */
     box-sizing: border-box;
+    
     
 }
 
@@ -183,7 +269,71 @@ form {
     background-color: #16371f;
 }
 
+@media (max-width: 768px) {
+    .sidebar {
+        transform: translateX(-100%);
+    }
+
+    .menu-icon {
+        display: block;
+        color: #20512d;
+    }
+
+
+    .content {
+        margin-left: 0px;
+        padding: 0px;
+    }
+
+    .sidebar.active {
+        transform: translateX(0);
+        z-index: 1010;
+    }
+
+    form {
+        margin: 0 auto;
+    }
+}
+
 @media (max-width: 550px) {
+
+    .sidebar {
+        transform: translateX(-100%);
+    }
+
+    .menu-icon {
+        position: fixed;
+        display: block;
+        width: 20px;
+        height: 20px;
+        z-index: 1100;
+    }    
+
+    .content {
+        /*margin-left: 10px;*/
+        margin-top: 40px;
+        padding-top: 10px;
+    }
+
+    .sidebar.active {
+        transform: translateX(0);
+        z-index: 1010;
+    }
+
+    .sidebar.hidden {
+        transform: translateX(-100%);
+    }
+
+    .top-bar {
+        height: 25px;
+        left: 0px;
+        z-index: 0;
+    }
+
+    form {
+        margin: 0 auto;
+    }
+
     .registros ul {
         margin: 10px; /* Reduce el margen para pantallas pequeñas */
         max-width: 100%; /* Asegura que no desborde */
@@ -193,5 +343,9 @@ form {
         padding: 10px; /* Ajusta el padding */
         max-width: 100%; /* Que ocupe todo el ancho disponible */
         margin: 10px 0; /* Márgenes verticales */
+    }
+
+    .menu-icon-btn {
+        color: #20512d;
     }
 }
