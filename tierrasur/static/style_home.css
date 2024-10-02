@@ -270,7 +270,71 @@ form {
     background-color: #16371f;
 }
 
-@media (max-width: 850px) {
+@media (max-width: 550px) {
+
+    .sidebar {
+        transform: translateX(-100%);
+    }
+
+    .menu-icon {
+        position: fixed;
+        display: block;
+        width: 20px;
+        height: 20px;
+        z-index: 1100;
+    }    
+
+    .content {       
+        padding-top: 10px;
+        margin: auto;
+        margin-top: 40px;
+        padding-left: 10px;
+        box-sizing: border-box;
+    }
+
+    .sidebar.active {
+        transform: translateX(0);
+        z-index: 1010;
+    }
+
+    .sidebar.hidden {
+        transform: translateX(-100%);
+    }
+
+    .top-bar {
+        height: 25px;
+        left: 0px;
+        z-index: 0;
+    }
+
+    .up-bar {
+        margin-left: 0px;
+        margin-top: 10px;
+        left: 0px;
+        
+    }
+
+    form {
+        margin: 0 auto;
+    }
+
+    .registros ul {
+        margin: 10px; /* Reduce el margen para pantallas pequeñas */
+        max-width: 100%; /* Asegura que no desborde */
+    }
+    
+    .registros li {
+        padding: 10px; /* Ajusta el padding */
+        max-width: 100%; /* Que ocupe todo el ancho disponible */
+        margin: 10px 0; /* Márgenes verticales */
+    }
+
+    .menu-icon-btn {
+        color: #20512d;
+    }
+}
+
+@media (min-width: 555px) and (max-width: 850px) {
     .sidebar {
         transform: translateX(-100%);
     }
@@ -306,57 +370,3 @@ form {
     }
 }
 
-@media (max-width: 550px) {
-
-    .sidebar {
-        transform: translateX(-100%);
-    }
-
-    .menu-icon {
-        position: fixed;
-        display: block;
-        width: 20px;
-        height: 20px;
-        z-index: 1100;
-    }    
-
-    .content {
-        /*margin-left: 10px;*/
-        margin-top: 40px;
-        padding-top: 10px;
-    }
-
-    .sidebar.active {
-        transform: translateX(0);
-        z-index: 1010;
-    }
-
-    .sidebar.hidden {
-        transform: translateX(-100%);
-    }
-
-    .top-bar {
-        height: 25px;
-        left: 0px;
-        z-index: 0;
-    }
-
-    form {
-        margin: 0 auto;
-    }
-
-    .registros ul {
-        margin: 10px; /* Reduce el margen para pantallas pequeñas */
-        max-width: 100%; /* Asegura que no desborde */
-    }
-    
-    .registros li {
-        padding: 10px; /* Ajusta el padding */
-        max-width: 100%; /* Que ocupe todo el ancho disponible */
-        margin: 10px 0; /* Márgenes verticales */
-    }
-
-    .menu-icon-btn {
-        color: #20512d;
-    }
-}
