@@ -97,7 +97,10 @@ function addItem() {
     const insumo_name = insumoSelect.options[insumoSelect.selectedIndex].text;
     
     const quantity = document.getElementById('cantidad').value;
-    const price = document.getElementById('precio').value;
+
+    // Depositos
+    const deposito_select = document.getElementById('deposito');
+    const deposito = deposito_select.options[deposito_select.selectedIndex].text;
 
     if (quantity == '' || up_name == 'Seleccione una opción' || lote_name == 'Seleccione una opción') {
         alert("Los campos UP, Lote y Cantidad no pueden estar vacíos.");
@@ -112,7 +115,7 @@ function addItem() {
         tipo: tablas_name,
         insumo: insumo_name,
         cant: parseFloat(quantity),
-        precio: parseFloat(price)
+        deposito: deposito
     });
 
     renderItems();
@@ -120,7 +123,7 @@ function addItem() {
 
     // Limpiar los campos de entrada después de agregar el ítem
     document.getElementById('cantidad').value = '';
-    document.getElementById('precio').value = '';
+    //document.getElementById('deposito').value = '';
     //document.getElementById('popupForm').style.display = 'none';
 
     // Muestro el boton de enviar orden
@@ -134,7 +137,7 @@ function renderItems() {
 
     items.forEach((item, index) => {
         const listItem = document.createElement('li');
-        listItem.textContent = `UP: ${item.up} - Lote: ${item.lote} - Actividad: ${item.actividad} - Tipo: ${item.tipo} - Insumo/Labor: ${item.insumo} - Cantidad: ${item.cant} - Precio: ${item.precio}`;
+        listItem.textContent = `UP: ${item.up} - Lote: ${item.lote} - Actividad: ${item.actividad} - Tipo: ${item.tipo} - Insumo/Labor: ${item.insumo} - Cantidad: ${item.cant} - Deposito: ${item.deposito}`;
         itemList.appendChild(listItem);
     });
 

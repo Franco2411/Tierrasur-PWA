@@ -44,8 +44,8 @@ def save_data():
         # Inserto los registros asociados
         for item in data['items']:
             c.execute(
-                    'insert into hoja_tareas (up, lote, actividad, fecha, cant, detalle, codigo, campa, nro_c, precio) values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)',
-                    (item['up'], item['lote'], item['actividad'], fecha, item['cant'], item['insumo'], item['tipo'], campa, order_id, item['precio'])
+                    'insert into hoja_tareas (up, lote, actividad, fecha, cant, detalle, codigo, campa, nro_c) values (%s,%s,%s,%s,%s,%s,%s,%s,%s)',
+                    (item['up'], item['lote'], item['actividad'], fecha, item['cant'], item['insumo'], item['tipo'], campa, order_id)
                 )
         db.commit()
         return jsonify({'success': True, 'order_id': order_id})
