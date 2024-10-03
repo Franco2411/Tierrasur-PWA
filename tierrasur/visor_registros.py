@@ -20,14 +20,14 @@ def get_registros():
 @bp.route('/api/get_registers', methods=['GET'])
 def get_registers():
     db, c = get_db()
-    data = request.get_json()
+    #data = request.get_json()
     error = None
     registros = []
 
     id_usuario = g.user['nick']
     #id_usuario = data.get('nick')
-    fecha_inicio = datetime.strptime(data.get('fecha_inicio'), '%d/%m/%Y')
-    fecha_final = datetime.strptime(data.get('fecha_final'), '%d/%m/%Y')
+    fecha_inicio = datetime.strptime(request.args.get('fecha1'), '%d/%m/%Y')
+    fecha_final = datetime.strptime(request.args.get('fecha2'), '%d/%m/%Y')
     logging.debug(f'Los datos enviados via api son id: {id_usuario}, fecha1: {fecha_inicio}, fecha2: {fecha_final}')
 
     if not id_usuario or not fecha_inicio or not fecha_final:
