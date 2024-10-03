@@ -33,7 +33,7 @@ document.getElementById('campos_list').addEventListener('change', function() {
             data.forEach(item => {
                 let option = document.createElement('option');
                 option.value = item['numlot'];
-                option.textContent = item['numlot'];
+                option.textContent = `${item['numlot']} - ${item['tipsue']}`;
                 segundaLista.appendChild(option);
             });
         });

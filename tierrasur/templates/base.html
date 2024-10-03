@@ -56,7 +56,7 @@
         <select id="campos_list" name="campos_list">
             <option value="">Seleccione una opción</option>
             {% for item in campos_list %}
-                <option value="{{ item['nro'] }}">{{ item['nro'] }}</option>
+                <option value="{{ item['nro'] }}">{{ item['nro'] }} - {{ item['nombre'] }}</option>
             {% endfor %}
         </select>
     

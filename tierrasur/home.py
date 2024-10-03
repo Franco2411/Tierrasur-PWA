@@ -65,7 +65,8 @@ def order_success(order_id):
 def combo_lotes():
     campos_id = request.args.get('campos_id')
     db, c = get_db()
-    c.execute("select * from lotes where numcam = %s and campana='24/25'", (campos_id,))
+    campa = anio_campania()
+    c.execute("select * from lotes where numcam = %s and campana= %s", (campos_id, campa))
     lotes_list = c.fetchall()
 
     return jsonify(lotes_list)
