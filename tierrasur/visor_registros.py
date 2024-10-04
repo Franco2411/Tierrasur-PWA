@@ -58,7 +58,7 @@ def get_registers():
                         'up': r['up'],
                         'lote': r['lote'],
                         'actividad': r['actividad'],
-                        'fecha': r['fecha'].isoformat(timespec='seconds'),
+                        'fecha': r['fecha'],
                         'cantidad': r['cant'],
                         'detalle': r['detalle'],
                         'codigo': r['codigo'],
