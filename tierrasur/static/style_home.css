@@ -281,6 +281,45 @@ form {
     background-color: #16371f;
 }
 
+.registros img {
+    margin: auto;
+    max-width: 500px;
+    max-height: 400px;
+}
+
+.registros {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    box-sizing: border-box;
+}
+
+.carta {
+    display: flex;
+    flex-direction: column;
+    border: solid 2px #20512d;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 2px 2px grey;
+    margin-right: 12px;
+    min-width: 230px;
+}
+
+.carta-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: #20512d;
+    color: #fff;
+    margin: 0px 0px;
+    padding: 10px 8px;
+}
+
+.carta p {
+    margin:8px 0px;
+    padding: 0px 8px;
+}
+
 @media (max-width: 550px) {
 
     .sidebar {

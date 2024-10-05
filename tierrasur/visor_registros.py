@@ -43,7 +43,7 @@ def get_registers():
         if not ordenes:
             error = 'No existen registros para el rango de fechas especificado.'
             logging.debug('Entre al if donde no hay ordenes')
-            return jsonify({'success': True, 'message': error})
+            return jsonify({'success': True, 'message': error, 'data': registros})
         else:
             for orden in ordenes:
                 nro_c = orden['id']
@@ -58,7 +58,7 @@ def get_registers():
                         'up': r['up'],
                         'lote': r['lote'],
                         'actividad': r['actividad'],
-                        'fecha': r['fecha'],
+                        'fecha': r['fecha'].isoformat(),
                         'cantidad': r['cant'],
                         'detalle': r['detalle'],
                         'codigo': r['codigo'],
