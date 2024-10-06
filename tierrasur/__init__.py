@@ -21,9 +21,11 @@ def create_app():
 
     from . import auth
     from . import home
+    from . import visor_registros
 
     app.register_blueprint(auth.bp)
     app.register_blueprint(home.bp)
+    app.register_blueprint(visor_registros.bp)
     
     @app.route('/prueba')
     def prueba():

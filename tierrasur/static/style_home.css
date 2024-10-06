@@ -99,8 +99,19 @@ body {
 
 .up-bar {
     display: -webkit-flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-between;
+}
+
+.up-bar h3 {
+    margin-bottom: 0px;
+}
+
+.up-bar p {
+    margin-top: 8px;
+    font-size: smaller;
+    color: #9b9898;
+    font-style: italic;
 }
 
 .up-bar button {
@@ -270,6 +281,60 @@ form {
     background-color: #16371f;
 }
 
+.registros-1 {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    font-size: small;
+    width: 100%;
+    max-width: 1500px;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+
+.div-img {
+    display: flex;
+    width: 75vw;
+    height: 70vh;
+}
+
+.div-img img {
+    margin: auto;
+    max-width: 500px;
+    max-height: 400px;
+}
+
+.carta {
+    display: flex;
+    flex-direction: column;
+    border: solid 2px #20512d;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 2px 2px grey;
+    margin-right: 12px;
+    margin-bottom: 12px;
+    /*min-width: 230px;
+    max-width: 260px;*/
+    width: 260px;
+    box-sizing: border-box;
+}
+
+.carta-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: #20512d;
+    color: #fff;
+    margin: 0px 0px;
+    padding: 10px 8px;
+}
+
+.carta p {
+    margin:8px 0px;
+    padding: 0px 8px;
+}
+
 @media (max-width: 550px) {
 
     .sidebar {
@@ -332,6 +397,31 @@ form {
     .menu-icon-btn {
         color: #20512d;
     }
+
+    .registros-1 {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+    }
+
+    .carta {
+        width: 100%;
+    }
+
+    .div-img {
+        display: flex;
+        width: 75vw;
+        height: 70vh;
+    }
+    
+    .div-img img {
+        margin: auto;
+        width: 75vw;
+        height: 50vh;
+
+    }
 }
 
 @media (min-width: 555px) and (max-width: 850px) {
@@ -367,6 +457,17 @@ form {
 
     form {
         margin: 0 auto;
+    }
+
+    .registros-1 {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .carta {
+        flex: auto;
     }
 }
 
