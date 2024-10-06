@@ -281,12 +281,6 @@ form {
     background-color: #16371f;
 }
 
-.registros-1 img {
-    margin: auto;
-    max-width: 500px;
-    max-height: 400px;
-}
-
 .registros-1 {
     display: flex;
     flex-direction: row;
@@ -297,6 +291,18 @@ form {
     max-width: 1500px;
     margin: 0 auto;
     box-sizing: border-box;
+}
+
+.div-img {
+    display: flex;
+    width: 75vw;
+    height: 70vh;
+}
+
+.div-img img {
+    margin: auto;
+    max-width: 500px;
+    max-height: 400px;
 }
 
 .carta {
@@ -402,6 +408,19 @@ form {
 
     .carta {
         width: 100%;
+    }
+
+    .div-img {
+        display: flex;
+        width: 75vw;
+        height: 70vh;
+    }
+    
+    .div-img img {
+        margin: auto;
+        width: 75vw;
+        height: 50vh;
+
     }
 }
 

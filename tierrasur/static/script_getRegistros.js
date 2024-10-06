@@ -139,10 +139,16 @@ function contenedorRegistros(registros) {
 
 function imagenNoDatos() {
     const contenedor = document.getElementById('conteinerRegisters');
+    
+    const div_img = document.createElement('div');
+    div_img.classList.add('div-img');
+
     const img = document.createElement('img');
-    img.src = '/static/images/no_data.jpg';
+    img.src = '/static/images/no_data.png';
     img.alt = 'No se encontraron datos.';
-    contenedor.appendChild(img);
+    
+    div_img.appendChild(img);
+    contenedor.appendChild(div_img);
 }
 
 // Funcion para formatear la fecha
