@@ -281,16 +281,21 @@ form {
     background-color: #16371f;
 }
 
-.registros img {
+.registros-1 img {
     margin: auto;
     max-width: 500px;
     max-height: 400px;
 }
 
-.registros {
+.registros-1 {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
+    flex-wrap: wrap;
+    font-size: small;
+    width: 100%;
+    max-width: 1500px;
+    margin: 0 auto;
     box-sizing: border-box;
 }
 
@@ -302,7 +307,11 @@ form {
     background-color: #fff;
     box-shadow: 2px 2px grey;
     margin-right: 12px;
-    min-width: 230px;
+    margin-bottom: 12px;
+    /*min-width: 230px;
+    max-width: 260px;*/
+    width: 260px;
+    box-sizing: border-box;
 }
 
 .carta-header {
@@ -382,6 +391,18 @@ form {
     .menu-icon-btn {
         color: #20512d;
     }
+
+    .registros-1 {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+    }
+
+    .carta {
+        width: 100%;
+    }
 }
 
 @media (min-width: 555px) and (max-width: 850px) {
@@ -417,6 +438,17 @@ form {
 
     form {
         margin: 0 auto;
+    }
+
+    .registros-1 {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .carta {
+        flex: auto;
     }
 }
 
