@@ -221,11 +221,16 @@ body {
 .btns {
     background-color: #20512d;
     color: #fff;
-    font-size: 15px;
+    font-size: 12px;
     font-weight: 550;
-    padding: 10px;
-    margin: 0px 8px;
+    padding: 8px;
+    /*margin: 0px 9px;*/
+    margin-bottom: 8px;
     border-radius: 8px;
+}
+
+#btnExcel {
+    display: none;
 }
 
 .btns:hover {

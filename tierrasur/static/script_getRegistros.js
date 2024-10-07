@@ -22,6 +22,7 @@ document.addEventListener("DOMContentLoaded", function () {
 // Hago la peticion en la Pantalla de Mis Registros
 document.addEventListener('DOMContentLoaded', function() {
     
+    const btnExcel = document.getElementById('btnExcel');
     const [fecha1, fecha2] = obtener_dia()
 
     const requestFecha = new URLSearchParams(
@@ -38,6 +39,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (Object.keys(data.data).length === 0 && data.constructor === Object) {
                     imagenNoDatos()
                 } else {
+                    btnExcel.style.display = 'block';
                     contenedorRegistros(data.data)
                 }                
                 console.log('Entre al if del fetch')
@@ -48,6 +50,40 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .catch(error => console.error('Error:', error));
 });
+
+// Función para descarga un excel con los registros
+function descarga_excel() {
+    const [fecha1, fecha2] = obtener_dia()
+
+    const requestFecha = new URLSearchParams(
+        {
+            fecha1: fecha1,
+            fecha2: fecha2
+        }
+    );
+
+    fetch(`/api/download_excel?${requestFecha.toString()}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Error al descargar el archivo');
+            }
+            return response.blob();
+        })
+        .then(blob => {
+            // Crear una URL para el blob y descargar el archivo
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `registros_${fecha1}.xlsx`;  // Nombre con el que se descargará el archivo
+            document.body.appendChild(a);
+            a.click();  // Simular el clic para descargar
+            a.remove();  // Remover el elemento del DOM
+        })
+        .catch(error => {
+            console.log('Error: ', error);
+        });
+    
+}
 
 // Funcion para obtener el dia de la fecha
 function obtener_dia() {

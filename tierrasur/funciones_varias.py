@@ -4,6 +4,8 @@ from sendgrid.helpers.mail import *
 from flask import current_app, g
 from tierrasur.db import get_db
 from datetime import datetime
+import pandas as pd
+from io import BytesIO
 
 
 
@@ -65,3 +67,58 @@ def anio_campania():
         campania = f'{anio % 100:02}/{anio_siguiente:02}'
 
     return campania
+
+# Funcion para descargar un archivo .xlsx
+def descargaExcel(nick_usuario, fecha_inicio, fecha_final):
+    """
+    Funcion que devuelve un dataframe para su posterior conversion en excel con los registros del dia.
+    """
+    db, c = get_db()
+    registros = []
+    if not nick_usuario or not fecha_inicio or not fecha_final:
+        error = 'Se tienen que completar todos los datos'
+        return error
+    else:
+        c.execute(
+        'select * from ordenes where creado_por = %s and fecha between %s and %s', (nick_usuario, fecha_inicio, fecha_final)
+        )
+        ordenes = c.fetchall()
+
+        if not ordenes:
+            error = 'No existen registros para el rango de fechas especificado.'
+            return error
+        else:
+            for orden in ordenes:
+                nro_c = orden['id']
+                c.execute(
+                    'select * from hoja_tareas where nro_c = %s order by fecha desc', (nro_c,)
+                )
+                reg = c.fetchall()
+                for r in reg:
+                    reg_dic = {
+                        'id': r['id'],
+                        'up': r['up'],
+                        'lote': r['lote'],
+                        'actividad': r['actividad'],
+                        'fecha': r['fecha'].isoformat(),
+                        'cantidad': r['cant'],
+                        'detalle': r['detalle'],
+                        'codigo': r['codigo'],
+                        'uta': r['uta'],
+                        'restar': r['restar'],
+                        'campania': r['campa'],
+                        'pc': r['pc'],
+                        'fechata': r['fechata'],
+                        'nro_c': r['nro_c'],
+                        'cplan': r['cplan'],
+                        'borrador': r['borrador'],
+                        'precio': r['precio']
+                    }
+                    registros.append(reg_dic)
+            
+            if len(registros) == 0:
+                error = 'No hay registros para mostrar'
+            else:
+                df = pd.DataFrame(registros)
+                return df
+    
