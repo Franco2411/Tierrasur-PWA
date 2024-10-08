@@ -4,7 +4,7 @@ from flask import (
 from werkzeug.exceptions import abort
 from tierrasur.auth import required_login
 from tierrasur.db import get_db
-from datetime import datetime
+from datetime import datetime, timedelta
 import logging
 from tierrasur.funciones_varias import anio_campania, descargaExcel
 from io import BytesIO
@@ -29,8 +29,10 @@ def get_registers():
 
     id_usuario = g.user['nick']
     #id_usuario = data.get('nick')
-    fecha_inicio = datetime.strptime(request.args.get('fecha1'), '%d/%m/%Y')
-    fecha_final = datetime.strptime(request.args.get('fecha2'), '%d/%m/%Y')
+    fecha_inicio1 = datetime.strptime(request.args.get('fecha1'), '%d/%m/%Y')
+    fecha_final1 = datetime.strptime(request.args.get('fecha2'), '%d/%m/%Y')
+    fecha_inicio = fecha_inicio1 - timedelta(hours=3)
+    fecha_final = fecha_final1 - timedelta(hours=3)
     logging.debug(f'Los datos enviados via api son id: {id_usuario}, fecha1: {fecha_inicio}, fecha2: {fecha_final}')
 
     if not id_usuario or not fecha_inicio or not fecha_final:

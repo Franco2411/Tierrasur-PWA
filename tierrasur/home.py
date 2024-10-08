@@ -4,7 +4,7 @@ from flask import (
 from werkzeug.exceptions import abort
 from tierrasur.auth import required_login
 from tierrasur.db import get_db
-from datetime import datetime
+from datetime import datetime, timedelta
 import logging
 from tierrasur.funciones_varias import anio_campania
 
@@ -30,7 +30,8 @@ def save_data():
     data = request.get_json()
 
     try:
-        fecha = datetime.now()
+        fecha1 = datetime.now()
+        fecha = fecha1 - timedelta(hours=3)
         usuario = g.user['nick']
         campa = anio_campania()
 
