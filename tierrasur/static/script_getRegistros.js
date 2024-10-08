@@ -148,6 +148,10 @@ function crearContenedorRegistros(data) {
     const cant = document.createElement('p');
     cant.innerHTML = `<b>Cantidad:</b> ${data.cantidad}`;
 
+    // Fecha
+    const usuario = document.createElement('p');
+    usuario.innerHTML = `<b>Usuario:</b> ${data.usuario}`;
+
     // Agrego los elementos al contenedor principal
     contenedor.appendChild(tituloPrincipal);
     contenedor.appendChild(uniProd);
@@ -157,6 +161,7 @@ function crearContenedorRegistros(data) {
     contenedor.appendChild(detalle);
     contenedor.appendChild(cant);
     contenedor.appendChild(fecha);
+    contenedor.appendChild(usuario);
 
     // Inserto el contenido en el DOM
     document.getElementById('conteinerRegisters').appendChild(contenedor);
