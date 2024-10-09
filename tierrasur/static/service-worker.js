@@ -5,9 +5,12 @@ const urlsToCache = [
     "/static/style_home.css",
     "/static/scripts.js",
     "/static/scripts_auth.js",
+    "/static/script_getRegistros.js",
+    "/static/script_actualizarHaciaAbajo.js",
     "/static/images/fondo.jpg",
     "/static/images/ic_launcher.png",
-    "/static/images/tierrasur.png"
+    "/static/images/tierrasur.png",
+    "/static/images/no_data.png"
 ];
 
 // Instalación del Service Worker
@@ -49,3 +52,17 @@ self.addEventListener("fetch", event => {
             })
     );
 });
+
+self.addEventListener('fetch', event => {
+    event.respondWith(
+      caches.open(CACHE_NAME).then(cache => {
+        return fetch(event.request).then(response => {
+          cache.put(event.request, response.clone());
+          return response;
+        }).catch(() => {
+          return cache.match(event.request);
+        });
+      })
+    );
+  });
+  
