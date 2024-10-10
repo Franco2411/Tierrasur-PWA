@@ -77,8 +77,13 @@ def obtRegistros(id_usuario, fecha_inicio, fecha_final):
     db, c = get_db()
     registros = []
     error = None
-    rol_id = g.user['rol_id']
-    logging.debug(f'El rol delusuario es el: {rol_id}')
+    # Obtengo el rol que tiene el usuario
+    c.execute(
+        'select * from usuarios where nick = %s', (id_usuario,)
+    )    
+    respuesta = c.fetchone()
+    rol_id = respuesta['rol_id']
+    logging.debug(f'El rol del usuario es el: {rol_id}')
 
     if not id_usuario or not fecha_inicio or not fecha_final:
         error = 'Faltan completar las fechas.'
@@ -183,3 +188,21 @@ def descargaExcel(nick_usuario, fecha_inicio, fecha_final):
         df = pd.DataFrame(registros)
         return df
     
+# Filtro de usuarios
+def filtrosUsuarios():
+    """
+    Funcion que se utiliza para filtrar por usuario los registros cargados
+    """
+    db, c = get_db()
+    error = None
+    usuarios = None
+    
+    try:
+        c.execute(
+            'select * from usuarios where rol_id <> 5'
+        )
+        usuarios = c.fetchall()
+    except Exception as e:
+        error = f'No se pudo recuperar a los usuarios, error: {e}'
+
+    return usuarios, error

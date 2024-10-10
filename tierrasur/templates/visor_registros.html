@@ -29,10 +29,28 @@
         </ul>
     </nav>
 </aside>
+
+<aside class="filtros" id="sidebar-filtros">
+  <h2>Filtros</h2>
+  <div id="checks">
+
+  </div>
+  <div class="fechas-filtros">
+    <label for="start-date">Fecha Inicio:</label>
+    <input type="date" id="start-date">
+
+    <label for="end-date">Fecha Fin:</label>
+    <input type="date" id="end-date">
+  </div>
+
+  <button type="button" id="aplicar_filtros">Aplicar filtros</button>
+  
+</aside>
 <main class="content">
     <div class="up-bar">
         <h3 class="nombre">Mis registros diarios</h3>
         <p>En ésta sección se verán  los registros cargados durante el día.</p>
+        <button type="button" class="btns">Filtros</button>
     </div>
     <div class="descargaExcel">
       <button type="button" id="btnExcel" class="btns" onclick="descarga_excel()">Descargar .xlsx</button>

@@ -6,7 +6,7 @@ from tierrasur.auth import required_login
 from tierrasur.db import get_db
 from datetime import datetime, timedelta
 import logging
-from tierrasur.funciones_varias import anio_campania, descargaExcel, obtRegistros
+from tierrasur.funciones_varias import anio_campania, descargaExcel, obtRegistros, filtrosUsuarios
 from io import BytesIO
 import pandas as pd
 from xlsxwriter import Workbook
@@ -23,26 +23,38 @@ def get_registros():
 @bp.route('/api/get_registers', methods=['GET'])
 def get_registers():
     
-    id_usuario = g.user['nick']
-    #data = request.get_json()
-    #id_usuario = data.get('nick')
+    id_usuario = request.args.get('nick_usuario')
     fecha_inicio1 = datetime.strptime(request.args.get('fecha1'), '%d/%m/%Y')
     fecha_final1 = datetime.strptime(request.args.get('fecha2'), '%d/%m/%Y')
     fecha_inicio = fecha_inicio1 - timedelta(hours=3)
     fecha_final = fecha_final1 - timedelta(hours=3)
-    logging.debug(f'Los datos enviados via api son id: {id_usuario}, fecha1: {fecha_inicio}, fecha2: {fecha_final}')
+    logging.debug(f'Los datos que manda el front son: {id_usuario}, fecha1: {fecha_inicio}, fecha2: {fecha_final}')
+    
 
-    registros, error = obtRegistros(id_usuario, fecha_inicio, fecha_final)
+    if not id_usuario or id_usuario == 'null':
+        id_usuario = g.user['nick']
+        registros, error = obtRegistros(id_usuario, fecha_inicio, fecha_final)
+        logging.debug(f'Los datos enviados via api son id: {id_usuario}, fecha1: {fecha_inicio}, fecha2: {fecha_final}')
+        return jsonify({'success': True, 'data': registros, 'message': error})
+    else:
+        registros, error = obtRegistros(id_usuario, fecha_inicio, fecha_final)
+        return jsonify({'success': True, 'data': registros, 'message': error})
 
-    return jsonify({'success': True, 'data': registros, 'message': error})
+    
+
+    
 
 @bp.route('/api/download_excel', methods=['GET'])
 @required_login
 def download_excel():
     error = None
-    id_usuario = g.user['nick']
+    id_usuario = request.args.get('nick_usuario')
     fecha_inicio = datetime.strptime(request.args.get('fecha1'), '%d/%m/%Y')
     fecha_final = datetime.strptime(request.args.get('fecha2'), '%d/%m/%Y')
+
+    if not id_usuario:
+        id_usuario = g.user['nick']
+    
 
     # Obtengo los registros
     registros = descargaExcel(id_usuario, fecha_inicio, fecha_final)
@@ -68,3 +80,13 @@ def download_excel():
                      mimetype='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
                      download_name=filename,
                      as_attachment=True)
+
+@bp.route('/api/get_filters', methods=['GET'])
+@required_login
+def get_filters():
+
+    users, error = filtrosUsuarios()
+    if error is None:
+        return jsonify({'success': True, 'data': users, 'message': 'Exito'})
+    else:
+        return jsonify({'success': False, 'data': users, 'message': error})

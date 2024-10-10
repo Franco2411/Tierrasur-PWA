@@ -28,7 +28,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const requestFecha = new URLSearchParams(
         {
             fecha1: fecha1,
-            fecha2: fecha2
+            fecha2: fecha2,
+            nick_usuario: null
         }
     );
 
@@ -50,6 +51,63 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .catch(error => console.error('Error:', error));
 });
+
+// Hago la peticion para recuperar los usuarios para los filtros
+/*document.addEventListener('DOMContentLoaded', function() {
+    
+    const btnExcel = document.getElementById('btnExcel');
+    const [hoy, hoy2] = obtener_dia()
+    const fecha1 = document.getElementById('fecha1');
+    const fecha2 = document.getElementById('fecha2');
+
+
+    fetch(`/api/get_filters`)
+        .then(response => response.json()) // Parsear la respuesta como JSON
+        .then(data => {
+            if (data.success) {
+                                
+                console.log('Entre al if del fetch')
+            } else {
+                console.log('Entre al else del fetch')
+            }
+            
+        })
+        .catch(error => console.error('Error:', error));
+});*/
+
+
+// Funcion que hace la petición a los registros
+function get_registros(nick_usuario, fecha1, fecha2) {
+    const requestParameters = new URLSearchParams(
+        {
+            fecha1: fecha1,
+            fecha2: fecha2,
+            nick_usuario: nick_usuario
+        });
+    
+    fetch(`/api/get_registers?${requestParameters.toString()}`)
+        .then(response => response.json()) // Parsear la respuesta como JSON
+        .then(data => {
+            if (data.success) {
+                if (Object.keys(data.data).length === 0 && data.constructor === Object) {
+                    imagenNoDatos()
+                } else {
+                    btnExcel.style.display = 'block';
+                    contenedorRegistros(data.data)
+                }                
+                console.log('Entre al if del fetch')
+            } else {
+                console.log('Entre al else del fetch')
+            }
+            
+        })
+        .catch(error => console.error('Error:', error));
+}
+
+// Funcion para crear los elementos del filtro
+/*function crearElementosFiltro(data) {
+    
+}*/
 
 // Función para descarga un excel con los registros
 function descarga_excel() {
