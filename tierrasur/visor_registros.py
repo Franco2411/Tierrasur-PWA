@@ -52,12 +52,15 @@ def download_excel():
     fecha_inicio = datetime.strptime(request.args.get('fecha1'), '%d/%m/%Y')
     fecha_final = datetime.strptime(request.args.get('fecha2'), '%d/%m/%Y')
 
-    if not id_usuario:
+    if not id_usuario or id_usuario == 'null':
         id_usuario = g.user['nick']
+        registros = descargaExcel(id_usuario, fecha_inicio, fecha_final)
+    else:
+        # Obtengo los registros        
+        registros = descargaExcel(id_usuario, fecha_inicio, fecha_final)
     
 
-    # Obtengo los registros
-    registros = descargaExcel(id_usuario, fecha_inicio, fecha_final)
+    
     if error is not None:
         return jsonify({'success': True, 'message': 'No existen registros para descargar', 'data': False})
     else:
@@ -82,10 +85,12 @@ def download_excel():
                      as_attachment=True)
 
 @bp.route('/api/get_filters', methods=['GET'])
-@required_login
 def get_filters():
 
+    logging.debug('La api get_filter fue llamada correctamente')
+
     users, error = filtrosUsuarios()
+
     if error is None:
         return jsonify({'success': True, 'data': users, 'message': 'Exito'})
     else:

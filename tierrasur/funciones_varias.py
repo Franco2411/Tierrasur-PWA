@@ -193,16 +193,26 @@ def filtrosUsuarios():
     """
     Funcion que se utiliza para filtrar por usuario los registros cargados
     """
+    print('Entre a la funcion')
     db, c = get_db()
     error = None
-    usuarios = None
+    usuarios = []
     
     try:
         c.execute(
             'select * from usuarios where rol_id <> 5'
         )
-        usuarios = c.fetchall()
+        cursor = c.fetchall()
+        for i in cursor:
+            usu = {
+                'id': i['id'],
+                'nick': i['nick'],
+                'rol_id': i['rol_id']
+            }
+            usuarios.append(usu)
+        return usuarios, error
     except Exception as e:
         error = f'No se pudo recuperar a los usuarios, error: {e}'
+        return usuarios, error
 
-    return usuarios, error
+    

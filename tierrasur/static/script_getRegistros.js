@@ -19,6 +19,31 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
+// Sidebar filtros
+document.addEventListener("DOMContentLoaded", function () {
+    const sidebar = document.getElementById("sidebar-filtros");
+    const filterBtn = document.getElementById("btn_filtro");
+    const apliFilters = document.getElementById("aplicar_filtros");
+    const cancelFilters = document.getElementById("cancelar_filtros");
+
+    // Mostrar/Ocultar el menú al hacer clic en el botón
+    filterBtn.addEventListener("click", () => {
+        sidebar.classList.toggle("active");
+    });
+
+    // Cerrar el menú al hacer clic fuera de él
+    document.addEventListener("click", (event) => {
+        const isClickInsideSidebar = sidebar.contains(event.target);
+        const isClickOnFilterButton = filterBtn.contains(event.target);
+        const isClickOnFilterApliButton = apliFilters.contains(event.target);
+        const isClickOnCancelApliButton = cancelFilters.contains(event.target);
+
+        if (!isClickInsideSidebar && !isClickOnFilterButton || isClickOnFilterApliButton || isClickOnCancelApliButton) {
+            sidebar.classList.remove("active");
+        }
+    });
+});
+
 // Hago la peticion en la Pantalla de Mis Registros
 document.addEventListener('DOMContentLoaded', function() {
     
@@ -53,19 +78,21 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // Hago la peticion para recuperar los usuarios para los filtros
-/*document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function() {
     
     const btnExcel = document.getElementById('btnExcel');
-    const [hoy, hoy2] = obtener_dia()
-    const fecha1 = document.getElementById('fecha1');
-    const fecha2 = document.getElementById('fecha2');
+    const [hoy, hoy2] = obtener_diaISO()
+    const fec1 = document.getElementById('start-date');
+    const fec2 = document.getElementById('end-date');
 
 
     fetch(`/api/get_filters`)
         .then(response => response.json()) // Parsear la respuesta como JSON
         .then(data => {
             if (data.success) {
-                                
+                crearElementosFiltro(data)
+                fec1.value = hoy;
+                fec2.value = hoy2;  
                 console.log('Entre al if del fetch')
             } else {
                 console.log('Entre al else del fetch')
@@ -73,8 +100,49 @@ document.addEventListener('DOMContentLoaded', function() {
             
         })
         .catch(error => console.error('Error:', error));
-});*/
+});
 
+
+// Funcion para el boton de filtros
+function filtrar_registros() {
+    
+    const fec1 = document.getElementById('start-date').value;
+    const fec2 = document.getElementById('end-date').value;
+
+    console.log(`Las fechas antes de formatearlas son: fec1: ${fec1} y fec2: ${fec2}`);
+
+
+    const fecha_inicial = formatearFecha(fec1)
+    const fecha_final = formatearFecha(fec2)
+
+    const divPrincipal = document.getElementById('conteinerRegisters');
+    divPrincipal.innerHTML = '';
+
+    const btnExcel = document.getElementById('btnExcel');
+    btnExcel.style.display = 'none';
+
+    
+    const nick_check = document.querySelectorAll('input[type="checkbox"]:checked');
+    if (nick_check.length === 0) {
+        console.log(fecha_inicial);
+        console.log(fecha_final);
+        get_registros('null', fecha_inicial, fecha_final)
+    } else {
+        nick_check.forEach(checkbox => {
+            const check_value = checkbox.value // Para obtener el valor del checkbox seleccionado
+    
+            console.log(check_value);
+            console.log(fecha_inicial);
+            console.log(fecha_final);
+    
+            
+            get_registros(check_value, fecha_inicial, fecha_final)
+            
+    
+        })
+    }
+    
+}
 
 // Funcion que hace la petición a los registros
 function get_registros(nick_usuario, fecha1, fecha2) {
@@ -105,18 +173,66 @@ function get_registros(nick_usuario, fecha1, fecha2) {
 }
 
 // Funcion para crear los elementos del filtro
-/*function crearElementosFiltro(data) {
+function crearElementosFiltro(data) {
+    const divContenedor = document.getElementById('checks');
     
-}*/
+    data.data.forEach(data => {
+        
+        const div = document.createElement('div');
+        div.classList.add('checkbox-wrapper');
+        
+        // Crear un nuevo checkbox
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.id = data.nick;
+        checkbox.name = 'singleCheckbox';
+        checkbox.value = data.nick;
+
+        // Crear una etiqueta para el checkbox
+        const label = document.createElement('label');
+        label.htmlFor = checkbox.id;
+        label.innerText = data.nick;
+
+        
+
+        // Agregar un evento para que solo uno esté seleccionado
+        checkbox.addEventListener('change', function() {
+            // Obtener todos los checkboxes del grupo
+            const checkboxes = document.querySelectorAll('input[name="singleCheckbox"]');
+            checkboxes.forEach(cb => {
+                // Deseleccionar los demás checkboxes si uno está seleccionado
+                if (cb !== this) {
+                    cb.checked = false;
+                }
+            });
+        });
+
+        // Agregar el checkbox y la etiqueta al contenedor
+        div.appendChild(checkbox);
+        div.appendChild(label);
+
+        //divContenedor.appendChild(document.createElement('br')); // Salto de línea
+
+        divContenedor.appendChild(div)
+    });
+
+}
 
 // Función para descarga un excel con los registros
 function descarga_excel() {
-    const [fecha1, fecha2] = obtener_dia()
+    const fec1 = document.getElementById('start-date').value;
+    const fec2 = document.getElementById('end-date').value;
+
+    console.log(`Las fechas antes de formatearlas son: fec1: ${fec1} y fec2: ${fec2}`);
+
+
+    const fecha_inicial = formatearFecha(fec1)
+    const fecha_final = formatearFecha(fec2)
 
     const requestFecha = new URLSearchParams(
         {
-            fecha1: fecha1,
-            fecha2: fecha2
+            fecha1: fecha_inicial,
+            fecha2: fecha_final
         }
     );
 
@@ -132,7 +248,7 @@ function descarga_excel() {
             const url = window.URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = `registros_${fecha1}.xlsx`;  // Nombre con el que se descargará el archivo
+            a.download = `registros_${fecha_inicial}.xlsx`;  // Nombre con el que se descargará el archivo
             document.body.appendChild(a);
             a.click();  // Simular el clic para descargar
             a.remove();  // Remover el elemento del DOM
@@ -164,10 +280,31 @@ function obtener_dia() {
     
 };
 
+// Funcion para obtener el dia de la fecha
+function obtener_diaISO() {
+    const hoy = new Date();
+
+    // Obtener el año, mes y día
+    const year = hoy.getFullYear();
+    const month = (hoy.getMonth() + 1).toString().padStart(2, '0'); // Los meses empiezan en 0, por eso sumamos 1
+    const day = hoy.getDate().toString().padStart(2, '0'); // El día del mes
+
+    const fecha1 = `${year}-${month}-${day}`;
+
+    const year2 = hoy.getFullYear();
+    const month2 = (hoy.getMonth() + 1).toString().padStart(2, '0'); // Los meses empiezan en 0, por eso sumamos 1
+    const day2 = (hoy.getDate() + 1).toString().padStart(2, '0');
+
+    const fecha2 = `${year2}-${month2}-${day2}`;
+
+    return [fecha1, fecha2];
+    
+};
+
 // Funcion para crear las vistas de los registros
 function crearContenedorRegistros(data) {
     // Formateo la fecha que devuelve el backend
-    const fec = formatearFecha(data.fecha)
+    const fec = formatearFechaCard(data.fecha)
     
     // Creo el contenedor principal
     const contenedor = document.createElement('div');
@@ -253,6 +390,20 @@ function imagenNoDatos() {
 // Funcion para formatear la fecha
 function formatearFecha(fechaString) {
     // Creo un objeto Date con el string recibido
+    const fecha = new Date(fechaString +'T00:00:00');
+  
+    // Obtengo el día, mes y año
+    const dia = fecha.getDate().toString().padStart(2, '0'); // Asegurar dos dígitos
+    const mes = (fecha.getMonth() + 1).toString().padStart(2, '0'); // Los meses van de 0 a 11, por eso sumamos 1
+    const año = fecha.getFullYear();
+  
+    // Formateo la fecha como dd/mm/yyyy
+    return `${dia}/${mes}/${año}`;
+  }
+
+  // Funcion para formatear la fecha
+function formatearFechaCard(fechaString) {
+    // Creo un objeto Date con el string recibido
     const fecha = new Date(fechaString);
   
     // Obtengo el día, mes y año
@@ -262,4 +413,18 @@ function formatearFecha(fechaString) {
   
     // Formateo la fecha como dd/mm/yyyy
     return `${dia}/${mes}/${año}`;
+  }
+
+  // Funcion para formatear la fecha
+function formatearFechaISO(fechaString) {
+    // Creo un objeto Date con el string recibido
+    const fecha = new Date(fechaString + 'T00:00:00');
+  
+    // Obtengo el día, mes y año
+    const dia = fecha.getDate().toString().padStart(2, '0'); // Asegurar dos dígitos
+    const mes = (fecha.getMonth() + 1).toString().padStart(2, '0'); // Los meses van de 0 a 11, por eso sumamos 1
+    const año = fecha.getFullYear();
+  
+    // Formateo la fecha como dd/mm/yyyy
+    return `${año}-${mes}-${dia}`;
   }
