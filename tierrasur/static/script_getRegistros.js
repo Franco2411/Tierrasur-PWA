@@ -222,17 +222,30 @@ function crearElementosFiltro(data) {
 function descarga_excel() {
     const fec1 = document.getElementById('start-date').value;
     const fec2 = document.getElementById('end-date').value;
-
-    console.log(`Las fechas antes de formatearlas son: fec1: ${fec1} y fec2: ${fec2}`);
+    let nick_usuario = 'null';
+    const nick_check = document.querySelectorAll('input[type="checkbox"]:checked');
+    if (nick_check.length != 0) {
+        nick_check.forEach(checkbox => {
+            const check_value = checkbox.value // Para obtener el valor del checkbox seleccionado 
+            
+            nick_usuario = check_value;
+            
+    
+        })
+    }
+    console.log(`Las fechas antes de formatearlas son: fec1: ${fec1} y fec2: ${fec2} y el usuario elegido es ${nick_usuario}`);
 
 
     const fecha_inicial = formatearFecha(fec1)
     const fecha_final = formatearFecha(fec2)
 
+    const [hoy, mañana] = obtener_dia()
+
     const requestFecha = new URLSearchParams(
         {
             fecha1: fecha_inicial,
-            fecha2: fecha_final
+            fecha2: fecha_final,
+            nick_usuario: nick_usuario
         }
     );
 
@@ -248,7 +261,7 @@ function descarga_excel() {
             const url = window.URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = `registros_${fecha_inicial}.xlsx`;  // Nombre con el que se descargará el archivo
+            a.download = `registros_${hoy}.xlsx`;  // Nombre con el que se descargará el archivo
             document.body.appendChild(a);
             a.click();  // Simular el clic para descargar
             a.remove();  // Remover el elemento del DOM
