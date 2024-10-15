@@ -59,9 +59,11 @@
           <h3 class="nombre">Mis registros diarios</h3>
           <p>En ésta sección se verán  los registros cargados durante el día.</p>
         </div>
+        {% if g.user['rol_id'] == 5 %}
         <div class="botonFiltro">
           <button type="button" class="btn_filtro" id="btn_filtro"><i class="fa-solid fa-filter"></i>     Filtros</button>          
-        </div>        
+        </div>
+        {% endif %}        
     </div>
     <div class="descargaExcel">
       <button type="button" id="btnExcel" class="btns" onclick="descarga_excel()">Descargar .xlsx</button>
