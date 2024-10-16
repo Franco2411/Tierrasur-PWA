@@ -68,9 +68,13 @@
     <div class="descargaExcel">
       <button type="button" id="btnExcel" class="btns" onclick="descarga_excel()">Descargar .xlsx</button>
     </div>
+    {% if g.user['rol_id'] == 5 %}
+
+    {% else %}
     <div class="registros-1" id="conteinerRegisters">
 
     </div>
+    {% endif %}
 </main>
 </body>
 <script src="{{ url_for('static', filename='script_getRegistros.js') }}"></script>
