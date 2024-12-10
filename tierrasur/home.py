@@ -62,7 +62,6 @@ def order_success(order_id):
     return f'La orden n° {order_id} fue creada con exito'
 
 @bp.route('/combo_lotes', methods=['GET'])
-@required_login
 def combo_lotes():
     campos_id = request.args.get('campos_id')
     db, c = get_db()
@@ -73,7 +72,6 @@ def combo_lotes():
     return jsonify(lotes_list)
 
 @bp.route('/combo_insumo_labor', methods=['GET'])
-@required_login
 def combo_insumo_labor():
     db, c = get_db()
 
@@ -84,7 +82,21 @@ def combo_insumo_labor():
 
     return jsonify(registros)
 
+@bp.route('/combo_campos', methods=['GET'])
+def combo_campos():
+    db, c = get_db()
+    c.execute('select * from campos order by id asc')
+    campos_list = c.fetchall()
 
+    return jsonify(campos_list)
+
+@bp.route('/combo_actividad', methods=['GET'])
+def combo_actividad():
+    db, c = get_db()
+    c.execute('select * from activity order by id1 asc')
+    actividad_list = c.fetchall()
+
+    return jsonify(actividad_list)
 
     
 
