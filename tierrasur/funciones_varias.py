@@ -127,6 +127,7 @@ def obtRegistros(id_usuario, fecha_inicio, fecha_final):
                         'cplan': r['cplan'],
                         'borrador': r['borrador'],
                         'precio': r['precio'],
+                        'vehiculo': r['vehiculo'],
                         'usuario': usuario
                     }
                     registros.append(reg_dic)
@@ -170,6 +171,7 @@ def obtRegistros(id_usuario, fecha_inicio, fecha_final):
                         'cplan': r['cplan'],
                         'borrador': r['borrador'],
                         'precio': r['precio'],
+                        'vehiculo': r['vehiculo'],
                         'usuario': usuario
                     }
                     registros.append(reg_dic)

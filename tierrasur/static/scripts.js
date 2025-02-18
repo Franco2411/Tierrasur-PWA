@@ -98,9 +98,9 @@ function addItem() {
     
     const quantity = document.getElementById('cantidad').value;
 
-    // Depositos
-    const deposito_select = document.getElementById('deposito');
-    const deposito = deposito_select.options[deposito_select.selectedIndex].text;
+    // Vehiculos
+    const vehiculo_select = document.getElementById('vehiculo');
+    const vehiculo = vehiculo_select.options[vehiculo_select.selectedIndex].text;
 
     if (quantity == '' || up_name == 'Seleccione una opción' || lote_name == 'Seleccione una opción') {
         alert("Los campos UP, Lote y Cantidad no pueden estar vacíos.");
@@ -115,7 +115,7 @@ function addItem() {
         tipo: tablas_name,
         insumo: insumo_name,
         cant: parseFloat(quantity),
-        deposito: deposito
+        vehiculo: vehiculo
     });
 
     renderItems();
@@ -137,7 +137,7 @@ function renderItems() {
 
     items.forEach((item, index) => {
         const listItem = document.createElement('li');
-        listItem.textContent = `UP: ${item.up} - Lote: ${item.lote} - Actividad: ${item.actividad} - Tipo: ${item.tipo} - Insumo/Labor: ${item.insumo} - Cantidad: ${item.cant} - Deposito: ${item.deposito}`;
+        listItem.textContent = `UP: ${item.up} - Lote: ${item.lote} - Actividad: ${item.actividad} - Tipo: ${item.tipo} - Insumo/Labor: ${item.insumo} - Cantidad: ${item.cant} - Vehiculo: ${item.vehiculo}`;
         itemList.appendChild(listItem);
     });
 

@@ -96,9 +96,12 @@
             <option value="">Seleccione una opción</option>
         </select>
     
-        <label for="deposito">Depósito</label>
-        <select id="deposito" name="deposito">
-          <option value="Las Parejas" disabled selected>Las Parejas</option>
+        <label for="vehiculo">Vehículo</label>
+        <select id="vehiculo" name="vehiculo">
+          <option value="">Seleccione una opción</option>
+          {% for item in vehiculos_list %}
+          <option value="{{ item['id1'] }}">{{ item['nombre'] }}</option>
+        {% endfor %}
       </select>
     
         <label for="cantidad">Cant.</label>

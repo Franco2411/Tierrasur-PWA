@@ -15,14 +15,23 @@ logging.basicConfig(level=logging.DEBUG)
 @bp.route('/', methods=['POST', 'GET'])
 @required_login
 def index():
+    
+    #Consulta campos
     db, c = get_db()
     c.execute('select * from campos order by id asc')
     campos_list = c.fetchall()
+
     error = None
+
+    #Consulta actividades
     c.execute('select * from activity order by id1 asc')
-    actividad_list = c.fetchall()       
+    actividad_list = c.fetchall()
+
+    #Consulta vehiculos
+    c.execute('select * from vehiculo order by id1 asc')
+    vehiculos_list = c.fetchall()       
     
-    return render_template('base.html', campos_list=campos_list, actividad_list=actividad_list)
+    return render_template('base.html', campos_list=campos_list, actividad_list=actividad_list, vehiculos_list=vehiculos_list)
 
 @bp.route('/api/save_data', methods=['POST'])
 def save_data():
@@ -45,8 +54,8 @@ def save_data():
         # Inserto los registros asociados
         for item in data['items']:
             c.execute(
-                    'insert into hoja_tareas (up, lote, actividad, fecha, cant, detalle, codigo, campa, nro_c) values (%s,%s,%s,%s,%s,%s,%s,%s,%s)',
-                    (item['up'], item['lote'], item['actividad'], fecha, item['cant'], item['insumo'], item['tipo'], campa, order_id)
+                    'insert into hoja_tareas (up, lote, actividad, fecha, cant, detalle, codigo, campa, nro_c, vehiculo) values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)',
+                    (item['up'], item['lote'], item['actividad'], fecha, item['cant'], item['insumo'], item['tipo'], campa, order_id, item['vehiculo'])
                 )
         db.commit()
         return jsonify({'success': True, 'order_id': order_id})
@@ -98,5 +107,13 @@ def combo_actividad():
 
     return jsonify(actividad_list)
 
+@bp.route('/combo_vehiculos', methods=['GET'])
+def combo_vehiculos():
+    db, c = get_db()
+    c.execute(
+        'select * from vehiculos order by id1 asc'
+    )
+    vehiculos_list = c.fetchall()
     
+    return jsonify(vehiculos_list)
 
