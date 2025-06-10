@@ -77,6 +77,7 @@ def combo_lotes():
     campa = anio_campania()
     c.execute("select * from lotes where numcam = %s and campana= %s", (campos_id, campa))
     lotes_list = c.fetchall()
+    logging.debug(f'Lotes devueltos: {lotes_list}')
 
     return jsonify(lotes_list)
 

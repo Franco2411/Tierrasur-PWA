@@ -102,8 +102,8 @@ function addItem() {
     const vehiculo_select = document.getElementById('vehiculo');
     const vehiculo = vehiculo_select.options[vehiculo_select.selectedIndex].text;
 
-    if (quantity == '' || up_name == 'Seleccione una opción' || lote_name == 'Seleccione una opción') {
-        alert("Los campos UP, Lote y Cantidad no pueden estar vacíos.");
+    if (quantity == '' || up_name == 'Seleccione una opción' || lote_name == 'Seleccione una opción' || actividad_name == 'Seleccione una opción' || tablas_name == 'Seleccione una opción' || insumo_name == 'Seleccione una opción' || vehiculo == 'Seleccione una opción') {
+        alert("Debe de seleccionar una opción en todos los campoos!!");
         return;
     }
 
