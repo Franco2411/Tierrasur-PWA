@@ -29,9 +29,12 @@ def index():
 
     #Consulta vehiculos
     c.execute('select * from vehiculo order by id1 asc')
-    vehiculos_list = c.fetchall()       
+    vehiculos_list = c.fetchall()
+
+    #Consulta campaña actual
+    campania = anio_campania()       
     
-    return render_template('base.html', campos_list=campos_list, actividad_list=actividad_list, vehiculos_list=vehiculos_list)
+    return render_template('base.html', campos_list=campos_list, actividad_list=actividad_list, vehiculos_list=vehiculos_list, campania=campania)
 
 @bp.route('/api/save_data', methods=['POST'])
 def save_data():
